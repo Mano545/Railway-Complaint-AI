@@ -1,0 +1,17 @@
+{
+  "name": "railway-complaint-ai",
+  "version": "1.0.0",
+  "description": "AI-powered Railway Complaint Management System",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "python server/app.py",
+    "client": "cd client && npm start",
+    "install-all": "npm install && cd client && npm install && pip install -r requirements.txt"
+  },
+  "keywords": ["railway", "complaint", "ai", "gemini"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
