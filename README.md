@@ -4,12 +4,13 @@ An AI-powered Railway Complaint Management System inspired by Rail Madad. Upload
 
 ## 🌟 Features
 
-- **AI-Powered Image Analysis**: Uses Gemini Vision API to understand railway issues from images
-- **Automatic Classification**: Classifies issues into 9 predefined categories
-- **Smart Priority Assignment**: Assigns priority levels (CRITICAL, HIGH, MEDIUM, LOW) based on issue severity
-- **Department Routing**: Automatically routes complaints to the appropriate department
-- **Structured Complaint Generation**: Creates professional complaint descriptions ready for filing
-- **Modern UI**: Beautiful, responsive React frontend with intuitive user experience
+- **AI-Powered Image Analysis**: EfficientNet (B0–B3) for issue detection with confidence scores; Gemini Vision as fallback
+- **Location Intelligence**: Capture GPS, resolve nearest railway station and track proximity, store with complaint
+- **Ticket OCR**: Upload ticket (image/PDF); extract train number, name, coach, seat, boarding/destination via EasyOCR/Tesseract
+- **Complaint Workflow**: Unique complaint ID (RM-…), status (Pending / In Progress / Resolved), optional image and train details
+- **User Authentication**: JWT-based login/register, password hashing; view and track own complaints
+- **Admin & Department Dashboard**: Role-based (admin/department); list/map complaints, filter by station/train/issue/status, assign department, AI insights (category/status/priority)
+- **Modern UI**: React frontend with GPS capture, ticket upload, auth, and admin dashboard
 
 ## 📋 Supported Issue Categories
 
@@ -134,8 +135,13 @@ railway-complaint-ai/
 
 ### Environment Variables
 
-- `GEMINI_API_KEY`: Your Google Gemini API key (required)
+- `GEMINI_API_KEY`: Google Gemini API key (required for fallback when EfficientNet is not used)
 - `PORT`: Backend server port (default: 5000)
+- `DATABASE_URL`: Database URL (default: SQLite `railway_complaints.db`); use PostgreSQL in production
+- `JWT_SECRET_KEY`: Secret for JWT signing (set in production)
+- `ADMIN_EMAIL`: Optional; create or promote this user to admin (set `ADMIN_PASSWORD` for new user)
+- `OCR_ENGINE`: `easyocr` or `tesseract` for ticket extraction (install optional deps: easyocr, pytesseract, pdf2image)
+- `STATIONS_JSON_PATH`: Path to railway stations JSON for nearest-station resolution (default: `server/data/railway_stations.json`)
 
 ### Python Dependencies
 
@@ -146,16 +152,17 @@ Key Python packages used:
 - `Pillow`: Image processing
 - `python-dotenv`: Environment variable management
 
-### API Endpoints
+### API Endpoints (summary)
 
-- `POST /api/complaint/submit`: Submit a complaint with image
-  - Body: `multipart/form-data`
-  - Fields:
-    - `image` (file, required): Image file (max 10MB)
-    - `text` (string, optional): Additional context
-  - Response: Complaint object with ID, category, priority, etc.
+- **Auth**: `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
+- **Location**: `POST /api/location/resolve` (GPS → nearest station, railway context)
+- **Ticket OCR**: `POST /api/ticket/extract` (image/PDF → train details)
+- **Complaint**: `POST /api/complaint/submit` (image + optional location, train_details, text), `GET /api/complaint/<id>`, `GET /api/complaint/my`
+- **Admin**: `GET /api/admin/complaints`, `GET /api/admin/complaints/map`, `PATCH .../status`, `PATCH .../assign`, `GET /api/admin/insights`
+- **ML**: `POST /api/ml/predict` (EfficientNet issue + confidence)
+- **Health**: `GET /api/health`
 
-- `GET /api/health`: Health check endpoint
+Full reference: [docs/API.md](docs/API.md). Database schema: [docs/DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md).
 
 ## 🎯 How It Works
 
@@ -192,15 +199,11 @@ Key Python packages used:
 
 ## 🔮 Future Enhancements
 
-- [ ] Database integration (MongoDB/PostgreSQL) for complaint storage
 - [ ] Real Rail Madad API integration
-- [ ] User authentication and complaint history
 - [ ] Email/SMS notifications
-- [ ] Admin dashboard for complaint management
 - [ ] Multi-language support
-- [ ] Image preprocessing and optimization
-- [ ] Batch complaint processing
-- [ ] Analytics and reporting
+- [ ] Map UI (Leaflet/Mapbox) for admin heatmap
+- [ ] Image preprocessing and batch processing
 
 ## 📝 Priority Assignment Rules
 

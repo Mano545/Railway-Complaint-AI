@@ -1,5 +1,26 @@
+# Backend
 Flask>=3.0.0
+Flask-SQLAlchemy>=3.1.0
 python-dotenv>=1.0.0
+Werkzeug>=3.0.0
+
+# Database (use one)
+# PostgreSQL:
+# psycopg2-binary>=2.9.0
+# SQLite is built-in
+
+# Auth
+PyJWT>=2.8.0
+passlib[bcrypt]>=1.7.4
+
+# AI / Vision
 google-generativeai>=0.8.0
 Pillow>=11.0.0
-Werkzeug>=3.0.0
+
+# OCR (optional: install for ticket extraction)
+# easyocr>=1.7.0
+# pytesseract>=0.3.10
+# pdf2image>=1.16.0
+
+# ML (EfficientNet inference - optional, train in ml/)
+# tensorflow>=2.15.0

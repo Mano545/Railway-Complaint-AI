@@ -54,6 +54,10 @@ build/
 coverage/
 .nyc_output/
 
+# ML trained models (large files)
+railway_issue_model*.h5
+railway_model_classes.json
+
 # Misc
 *.pem
 .cache/
@@ -63,3 +67,6 @@ PROMPT_DOCUMENTATION.md
 PYTHON_SETUP.md
 QUICK_START.md
 SAMPLE_OUTPUTS.md
+datasets/
+docs/
+server/dataset/

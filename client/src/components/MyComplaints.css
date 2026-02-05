@@ -1,0 +1,21 @@
+.my-complaints { max-width: 700px; margin: 0 auto; }
+.my-complaints h2 { margin-bottom: 1rem; color: #1a1a2e; }
+.my-complaints-loading, .my-complaints-error { text-align: center; padding: 2rem; }
+.my-complaints-error { color: #c00; }
+.no-complaints { color: #666; padding: 2rem; }
+.complaint-list { list-style: none; padding: 0; margin: 0; }
+.complaint-item {
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.complaint-item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.complaint-item-header strong { color: #667eea; }
+.complaint-item-meta { font-size: 0.9rem; color: #555; margin-bottom: 0.25rem; }
+.complaint-item-loc { font-size: 0.85rem; color: #444; }
+.complaint-item-time { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
+.status-badge.pending { background: #ffbb00; color: #000; }
+.status-badge.in-progress { background: #667eea; color: #fff; }
+.status-badge.resolved { background: #00aa00; color: #fff; }
